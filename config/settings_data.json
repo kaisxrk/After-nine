@@ -3,10 +3,10 @@
     "logo_height": 30,
     "clock_place": "Mackay, QLD",
     "clock_timezone": "Australia/Brisbane",
-    "color_paper": "#f6f4ef",
+    "color_paper": "#ffffff",
     "color_ink": "#161614",
-    "color_muted": "#6f6c64",
-    "color_line": "#dcd8cf",
+    "color_muted": "#707070",
+    "color_line": "#e6e6e6",
     "color_tile": "#ffffff"
   },
   "presets": {
@@ -14,10 +14,10 @@
       "logo_height": 30,
       "clock_place": "Mackay, QLD",
       "clock_timezone": "Australia/Brisbane",
-      "color_paper": "#f6f4ef",
+      "color_paper": "#ffffff",
       "color_ink": "#161614",
-      "color_muted": "#6f6c64",
-      "color_line": "#dcd8cf",
+      "color_muted": "#707070",
+      "color_line": "#e6e6e6",
       "color_tile": "#ffffff"
     }
   }
