@@ -1,0 +1,22 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "ship": {
+          "type": "collapsible",
+          "settings": {
+            "title": "Shipping & returns"
+          }
+        }
+      },
+      "block_order": [
+        "ship"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

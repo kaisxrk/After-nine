@@ -1,0 +1,18 @@
+{%- comment -%} Renders a product tile. Accepts: product {%- endcomment -%}
+{%- assign card_alt = product.featured_media.alt | default: product.title -%}
+<a class="card" href="{{ product.url }}">
+  <div class="card__ph">
+    {%- if product.featured_media -%}
+      {{ product.featured_media | image_url: width: 900 | image_tag: widths: '360, 540, 720, 900', sizes: '(max-width: 800px) 50vw, 25vw', loading: 'lazy', alt: card_alt }}
+    {%- else -%}
+      {{ 'product-apparel-1' | placeholder_svg_tag: 'card__placeholder' }}
+    {%- endif -%}
+    {%- unless product.available -%}
+      <span class="card__tag">{{ 'products.sold_out' | t }}</span>
+    {%- endunless -%}
+  </div>
+  <div class="card__info">
+    <span>{{ product.title | escape }}</span>
+    <span class="card__price">{% render 'price', product: product %}</span>
+  </div>
+</a>

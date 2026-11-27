@@ -1,0 +1,36 @@
+{%- if cart.item_count > 0 -%}
+  <ul class="lines">
+    {%- for item in cart.items -%}
+      <li class="line">
+        <a href="{{ item.url }}" class="line__img">
+          {%- if item.image -%}{{ item.image | image_url: width: 240 | image_tag: loading: 'lazy', alt: item.product.title }}{%- endif -%}
+        </a>
+        <div class="line__body">
+          <a href="{{ item.url }}" class="line__title">{{ item.product.title | escape }}</a>
+          {%- unless item.product.has_only_default_variant -%}
+            <span class="line__meta">{{ item.variant.title | escape }}</span>
+          {%- endunless -%}
+          <div class="line__qty">
+            <button type="button" data-line="{{ forloop.index }}" data-qty="{{ item.quantity | minus: 1 }}" aria-label="Decrease quantity">−</button>
+            <span>{{ item.quantity }}</span>
+            <button type="button" data-line="{{ forloop.index }}" data-qty="{{ item.quantity | plus: 1 }}" aria-label="Increase quantity">+</button>
+            <button type="button" class="line__remove" data-line="{{ forloop.index }}" data-qty="0">{{ 'cart.remove' | t }}</button>
+          </div>
+        </div>
+        <span class="line__price">{{ item.final_line_price | money_without_trailing_zeros }}</span>
+      </li>
+    {%- endfor -%}
+  </ul>
+  <div class="cart-foot">
+    <div class="cart-foot__row"><span>{{ 'cart.subtotal' | t }}</span><span>{{ cart.total_price | money_with_currency }}</span></div>
+    <p class="cart-foot__note">{{ 'cart.taxes' | t }}</p>
+    <form action="{{ routes.cart_url }}" method="post">
+      <button type="submit" name="checkout" class="btn">{{ 'cart.checkout' | t }}</button>
+    </form>
+  </div>
+{%- else -%}
+  <div class="cart-empty">
+    <p>{{ 'cart.empty' | t }}</p>
+    <a href="{{ routes.all_products_collection_url }}" class="link-line">{{ 'cart.continue' | t }}</a>
+  </div>
+{%- endif -%}

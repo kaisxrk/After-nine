@@ -1,0 +1,23 @@
+{%- paginate blog.articles by 12 -%}
+<section class="page page--wide">
+  <h1 class="page__title">{{ blog.title | escape }}</h1>
+  <div class="journal">
+    {%- for article in blog.articles -%}
+      <a class="journal__item" href="{{ article.url }}">
+        {%- if article.image -%}
+          {{ article.image | image_url: width: 1000 | image_tag: sizes: '(max-width: 800px) 100vw, 33vw', loading: 'lazy' }}
+        {%- endif -%}
+        <span class="muted">{{ article.published_at | date: '%-d %B %Y' }}</span>
+        <h2>{{ article.title | escape }}</h2>
+      </a>
+    {%- endfor -%}
+  </div>
+  {%- if paginate.pages > 1 -%}
+    <nav class="pager" aria-label="Pages">{{ paginate | default_pagination: previous: '←', next: '→' }}</nav>
+  {%- endif -%}
+</section>
+{%- endpaginate -%}
+
+{% schema %}
+{ "name": "Blog" }
+{% endschema %}

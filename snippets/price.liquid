@@ -1,0 +1,16 @@
+{%- comment -%} Accepts: product, or variant {%- endcomment -%}
+{%- liquid
+  if variant
+    assign p = variant.price
+    assign c = variant.compare_at_price
+  else
+    assign p = product.price_min
+    assign c = product.compare_at_price_min
+    if product.price_varies
+      assign from = true
+    endif
+  endif
+-%}
+{%- if from %}From {% endif -%}
+{%- if c > p -%}<s class="price__was">{{ c | money_without_trailing_zeros }}</s> {% endif -%}
+{{ p | money_without_trailing_zeros }}

@@ -1,0 +1,27 @@
+{%- paginate collection.products by section.settings.per_page -%}
+<section class="products products--page">
+  <div class="section-head section-head--page">
+    <h1>{{ collection.title | escape }}</h1>
+    <span>{{ collection.products_count }} {{ collection.products_count | pluralize: 'piece', 'pieces' }}</span>
+  </div>
+  <div class="grid">
+    {%- for product in collection.products -%}
+      {% render 'product-card', product: product %}
+    {%- else -%}
+      <p class="empty">{{ 'general.no_products' | t }}</p>
+    {%- endfor -%}
+  </div>
+  {%- if paginate.pages > 1 -%}
+    <nav class="pager" aria-label="Pages">{{ paginate | default_pagination: previous: '←', next: '→' }}</nav>
+  {%- endif -%}
+</section>
+{%- endpaginate -%}
+
+{% schema %}
+{
+  "name": "Collection",
+  "settings": [
+    { "type": "range", "id": "per_page", "label": "Products per page", "min": 8, "max": 48, "step": 4, "default": 24 }
+  ]
+}
+{% endschema %}

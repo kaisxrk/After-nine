@@ -1,0 +1,27 @@
+<section class="products products--page">
+  <form action="{{ routes.search_url }}" method="get" class="search-form" role="search">
+    <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search' | t }}" aria-label="{{ 'general.search' | t }}" autofocus>
+    <input type="hidden" name="type" value="product">
+  </form>
+  {%- if search.performed -%}
+    {%- paginate search.results by 24 -%}
+      <div class="section-head"><h2>{{ search.results_count }} {{ search.results_count | pluralize: 'result', 'results' }}</h2></div>
+      <div class="grid">
+        {%- for item in search.results -%}
+          {%- if item.object_type == 'product' -%}
+            {% render 'product-card', product: item %}
+          {%- endif -%}
+        {%- else -%}
+          <p class="empty">No results for “{{ search.terms | escape }}”.</p>
+        {%- endfor -%}
+      </div>
+      {%- if paginate.pages > 1 -%}
+        <nav class="pager" aria-label="Pages">{{ paginate | default_pagination: previous: '←', next: '→' }}</nav>
+      {%- endif -%}
+    {%- endpaginate -%}
+  {%- endif -%}
+</section>
+
+{% schema %}
+{ "name": "Search" }
+{% endschema %}

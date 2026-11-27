@@ -1,0 +1,5 @@
+{%- if settings.logo != blank -%}
+  {{ settings.logo | image_url: height: 160 | image_tag: class: 'wordmark', alt: shop.name, height: settings.logo_height, loading: 'eager' }}
+{%- else -%}
+  <img class="wordmark" src="{{ 'wordmark.png' | asset_url }}" alt="{{ shop.name }}" width="90" height="30">
+{%- endif -%}

@@ -1,0 +1,71 @@
+<footer class="footer">
+  <div class="footer__news">
+    <h2 class="footer__h">{{ section.settings.newsletter_heading | escape }}</h2>
+    {%- if section.settings.newsletter_text != blank -%}
+      <p>{{ section.settings.newsletter_text | escape }}</p>
+    {%- endif -%}
+    {%- form 'customer', class: 'signup', id: 'footer-newsletter' -%}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+      {%- if form.posted_successfully? -%}
+        <p class="signup__done" role="status">{{ 'newsletter.success' | t }}</p>
+      {%- else -%}
+        <input type="email" name="contact[email]" placeholder="{{ 'newsletter.placeholder' | t }}" aria-label="{{ 'newsletter.placeholder' | t }}" autocomplete="email" required>
+        <button type="submit">{{ 'newsletter.submit' | t }}</button>
+      {%- endif -%}
+      {%- if form.errors -%}
+        <p class="signup__error">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</p>
+      {%- endif -%}
+    {%- endform -%}
+  </div>
+
+  {%- for i in (1..2) -%}
+    {%- liquid
+      if i == 1
+        assign menu = section.settings.menu_1
+        assign heading = section.settings.menu_1_heading
+      else
+        assign menu = section.settings.menu_2
+        assign heading = section.settings.menu_2_heading
+      endif
+    -%}
+    {%- if menu != blank -%}
+      <div>
+        <h2 class="footer__h">{{ heading | escape }}</h2>
+        <ul>
+          {%- for link in menu.links -%}
+            <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+          {%- endfor -%}
+          {%- if i == 2 -%}
+            {%- if settings.social_instagram != blank -%}<li><a href="{{ settings.social_instagram }}" target="_blank" rel="noopener">Instagram</a></li>{%- endif -%}
+            {%- if settings.social_tiktok != blank -%}<li><a href="{{ settings.social_tiktok }}" target="_blank" rel="noopener">TikTok</a></li>{%- endif -%}
+          {%- endif -%}
+        </ul>
+      </div>
+    {%- endif -%}
+  {%- endfor -%}
+
+  <div class="footer__legal">
+    <span>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}{% if section.settings.legal_place != blank %}. {{ section.settings.legal_place | escape }}{% endif %}</span>
+    {%- if section.settings.legal_note != blank -%}
+      <span>{{ section.settings.legal_note | escape }}</span>
+    {%- endif -%}
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    { "type": "text", "id": "newsletter_heading", "label": "Newsletter heading", "default": "Join the club" },
+    { "type": "text", "id": "newsletter_text", "label": "Newsletter text", "default": "First access to new releases. Nothing else." },
+    { "type": "header", "content": "Menus" },
+    { "type": "text", "id": "menu_1_heading", "label": "First menu heading", "default": "Help" },
+    { "type": "link_list", "id": "menu_1", "label": "First menu", "default": "footer" },
+    { "type": "text", "id": "menu_2_heading", "label": "Second menu heading", "default": "After Nine" },
+    { "type": "link_list", "id": "menu_2", "label": "Second menu", "default": "main-menu", "info": "Instagram and TikTok links from Theme settings are added here." },
+    { "type": "header", "content": "Bottom line" },
+    { "type": "text", "id": "legal_place", "label": "Place", "default": "Mackay, Queensland" },
+    { "type": "text", "id": "legal_note", "label": "Note", "default": "Free shipping on orders to Mackay" }
+  ]
+}
+{% endschema %}

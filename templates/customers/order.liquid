@@ -1,0 +1,26 @@
+<section class="page">
+  <p><a href="{{ routes.account_url }}" class="muted">← Account</a></p>
+  <h1 class="page__title">Order {{ order.name }}</h1>
+  <p class="muted">{{ order.created_at | date: '%-d %B %Y' }}{% if order.cancelled %} · Cancelled{% endif %}</p>
+  <table class="table">
+    <thead><tr><th>Item</th><th>Qty</th><th>Total</th></tr></thead>
+    <tbody>
+      {%- for line_item in order.line_items -%}
+        <tr>
+          <td>{{ line_item.title | link_to: line_item.product.url }}{% if line_item.fulfillment %}<br><span class="muted">{{ line_item.fulfillment.tracking_company }} {{ line_item.fulfillment.tracking_number }}</span>{% endif %}</td>
+          <td>{{ line_item.quantity }}</td>
+          <td>{{ line_item.final_line_price | money }}</td>
+        </tr>
+      {%- endfor -%}
+    </tbody>
+    <tfoot>
+      <tr><td colspan="2">Subtotal</td><td>{{ order.line_items_subtotal_price | money }}</td></tr>
+      {%- for shipping_method in order.shipping_methods -%}<tr><td colspan="2">Shipping ({{ shipping_method.title }})</td><td>{{ shipping_method.price | money }}</td></tr>{%- endfor -%}
+      <tr><td colspan="2">Total</td><td>{{ order.total_price | money_with_currency }}</td></tr>
+    </tfoot>
+  </table>
+  {%- if order.shipping_address -%}
+    <h2 class="footer__h stack-gap">Shipping to</h2>
+    <p>{{ order.shipping_address | format_address }}</p>
+  {%- endif -%}
+</section>

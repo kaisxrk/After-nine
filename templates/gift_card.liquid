@@ -1,0 +1,32 @@
+{% layout none %}
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gift card – {{ shop.name }}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  {% render 'theme-vars' %}
+  {{ 'base.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'vendor/qrcode.js' | shopify_asset_url }}" defer></script>
+  {{ content_for_header }}
+</head>
+<body>
+  <section class="page page--center">
+    <div class="password__logo">{% render 'wordmark' %}</div>
+    <p class="statement__big">{{ gift_card.initial_value | money_without_trailing_zeros }}</p>
+    {%- if gift_card.balance != gift_card.initial_value -%}<p class="muted">Balance {{ gift_card.balance | money }}</p>{%- endif -%}
+    <p class="giftcode">{{ gift_card.code | format_code }}</p>
+    {%- if gift_card.expired or gift_card.enabled == false -%}<p class="muted">This gift card is no longer valid.</p>{%- endif -%}
+    <div id="QrCode" data-identifier="{{ gift_card.qr_identifier }}"></div>
+    <p><a href="{{ shop.url }}" class="link-line">Shop now</a> &nbsp; <a href="#" onclick="window.print();return false;" class="link-line">Print</a></p>
+  </section>
+  <script>
+    window.addEventListener('load', function () {
+      var el = document.getElementById('QrCode');
+      if (window.QRCode && el) new QRCode(el, { text: el.dataset.identifier, width: 120, height: 120 });
+    });
+  </script>
+</body>
+</html>

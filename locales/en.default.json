@@ -1,0 +1,31 @@
+{
+  "general": {
+    "skip": "Skip to content",
+    "bag": "Bag",
+    "search": "Search",
+    "close": "Close",
+    "view_all": "View all",
+    "no_products": "Nothing here yet."
+  },
+  "products": {
+    "add_to_bag": "Add to bag",
+    "sold_out": "Sold out",
+    "unavailable": "Unavailable",
+    "sale": "Sale",
+    "quantity": "Quantity"
+  },
+  "cart": {
+    "title": "Bag",
+    "empty": "Your bag is empty.",
+    "continue": "Continue shopping",
+    "subtotal": "Subtotal",
+    "checkout": "Checkout",
+    "remove": "Remove",
+    "taxes": "Shipping and taxes calculated at checkout."
+  },
+  "newsletter": {
+    "success": "Thanks, you're in.",
+    "placeholder": "Email address",
+    "submit": "Join"
+  }
+}

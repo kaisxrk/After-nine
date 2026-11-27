@@ -1,0 +1,36 @@
+{%- liquid
+  assign limit = section.settings.limit
+  if section.settings.products != blank
+    assign items = section.settings.products
+  elsif section.settings.collection != blank
+    assign items = section.settings.collection.products
+  else
+    assign items = collections.all.products
+  endif
+-%}
+<section class="products" id="shop">
+  <div class="section-head">
+    <h2>{{ section.settings.heading | escape }}</h2>
+    <a href="{{ section.settings.collection.url | default: routes.all_products_collection_url }}">{{ 'general.view_all' | t }}</a>
+  </div>
+  <div class="grid">
+    {%- for product in items limit: limit -%}
+      {% render 'product-card', product: product %}
+    {%- else -%}
+      <p class="empty">{{ 'general.no_products' | t }}</p>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured products",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "The collection" },
+    { "type": "product_list", "id": "products", "label": "Products", "limit": 8, "info": "Pick products by hand, or leave empty to use the collection below." },
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "range", "id": "limit", "label": "Number of products", "min": 2, "max": 8, "step": 1, "default": 4 }
+  ],
+  "presets": [{ "name": "Featured products" }]
+}
+{% endschema %}

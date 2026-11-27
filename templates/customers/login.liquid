@@ -1,0 +1,20 @@
+<section class="page page--narrow">
+  <h1 class="page__title">Log in</h1>
+  {%- form 'customer_login', class: 'stack' -%}
+    {{ form.errors | default_errors }}
+    <label>Email<input type="email" name="customer[email]" autocomplete="email" required></label>
+    <label>Password<input type="password" name="customer[password]" autocomplete="current-password" required></label>
+    <button type="submit" class="btn">Log in</button>
+    <a href="#recover" class="muted">Forgot your password?</a>
+  {%- endform -%}
+  <div id="recover" class="stack-gap">
+    <h2 class="footer__h">Reset password</h2>
+    {%- form 'recover_customer_password', class: 'stack' -%}
+      {{ form.errors | default_errors }}
+      {%- if form.posted_successfully? -%}<p>Check your email for a reset link.</p>{%- endif -%}
+      <label>Email<input type="email" name="email" autocomplete="email" required></label>
+      <button type="submit" class="btn btn--ghost">Send reset link</button>
+    {%- endform -%}
+  </div>
+  <p class="stack-gap"><a href="{{ routes.account_register_url }}" class="link-line">Create an account</a></p>
+</section>

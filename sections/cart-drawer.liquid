@@ -1,0 +1,16 @@
+<div class="drawer" data-drawer aria-hidden="true">
+  <div class="drawer__scrim" data-cart-close></div>
+  <aside class="drawer__panel" role="dialog" aria-modal="true" aria-label="{{ 'cart.title' | t }}" tabindex="-1">
+    <div class="drawer__head">
+      <h2>{{ 'cart.title' | t }} (<span data-cart-count>{{ cart.item_count }}</span>)</h2>
+      <button type="button" data-cart-close>{{ 'general.close' | t }}</button>
+    </div>
+    <div class="drawer__body" data-cart-body>
+      {% render 'cart-lines' %}
+    </div>
+  </aside>
+</div>
+
+{% schema %}
+{ "name": "Cart drawer" }
+{% endschema %}

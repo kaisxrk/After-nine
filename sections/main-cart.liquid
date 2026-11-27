@@ -1,0 +1,10 @@
+<section class="page page--cart">
+  <h1 class="page__title">{{ 'cart.title' | t }}</h1>
+  <div data-cart-body>
+    {% render 'cart-lines' %}
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Cart" }
+{% endschema %}

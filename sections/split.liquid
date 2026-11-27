@@ -1,0 +1,47 @@
+<section class="split" aria-label="{{ section.settings.label | escape }}">
+  {%- for block in section.blocks -%}
+    <a class="split__tile" href="{{ block.settings.link | default: routes.all_products_collection_url }}" {{ block.shopify_attributes }}>
+      {%- if block.settings.image != blank -%}
+        {{ block.settings.image | image_url: width: 1400 | image_tag: widths: '600, 900, 1200, 1400', sizes: '(max-width: 800px) 100vw, 50vw', loading: 'lazy' }}
+      {%- elsif block.settings.fallback != blank -%}
+        <img src="{{ block.settings.fallback | asset_url }}" alt="" width="1100" height="1375" loading="lazy">
+      {%- endif -%}
+      <span class="split__label">
+        <em>{{ block.settings.title | escape }}</em>
+        {{ block.settings.subtitle | escape }}
+      </span>
+    </a>
+  {%- endfor -%}
+</section>
+
+{% schema %}
+{
+  "name": "Image split",
+  "max_blocks": 3,
+  "settings": [
+    { "type": "text", "id": "label", "label": "Accessible label", "default": "Collections" }
+  ],
+  "blocks": [
+    {
+      "type": "tile",
+      "name": "Tile",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "fallback", "label": "Built-in image (used when no image is picked)", "info": "on-course.jpg or off-course.jpg" },
+        { "type": "text", "id": "title", "label": "Title", "default": "On course" },
+        { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "Caps & polos" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image split",
+      "blocks": [
+        { "type": "tile", "settings": { "title": "On course", "subtitle": "Caps & polos", "fallback": "on-course.jpg" } },
+        { "type": "tile", "settings": { "title": "Off course", "subtitle": "Tees", "fallback": "off-course.jpg" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

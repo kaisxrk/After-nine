@@ -1,0 +1,12 @@
+<article class="page">
+  <p class="muted">{{ article.published_at | date: '%-d %B %Y' }}</p>
+  <h1 class="page__title">{{ article.title | escape }}</h1>
+  {%- if article.image -%}
+    <div class="page__img">{{ article.image | image_url: width: 1600 | image_tag: sizes: '(max-width: 800px) 100vw, 720px' }}</div>
+  {%- endif -%}
+  <div class="rte">{{ article.content }}</div>
+</article>
+
+{% schema %}
+{ "name": "Article" }
+{% endschema %}

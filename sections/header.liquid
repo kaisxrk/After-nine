@@ -1,0 +1,46 @@
+{%- assign overlay = false -%}
+{%- if template.name == 'index' and section.settings.overlay_home -%}
+  {%- assign overlay = true -%}
+{%- endif -%}
+
+<header class="header{% if overlay %} header--overlay{% else %} solid{% endif %}" id="header" data-overlay="{{ overlay }}">
+  <nav class="header__nav" aria-label="Main">
+    {%- if section.settings.menu != blank -%}
+      {%- for link in section.settings.menu.links -%}
+        <a href="{{ link.url }}"{% if forloop.index > 2 %} class="hide-sm"{% endif %}{% if link.current %} aria-current="page"{% endif %}>{{ link.title | escape }}</a>
+      {%- endfor -%}
+    {%- else -%}
+      <a href="{{ routes.all_products_collection_url }}">Shop</a>
+    {%- endif -%}
+  </nav>
+
+  <a href="{{ routes.root_url }}" class="header__logo" aria-label="{{ shop.name }} home">
+    {% render 'wordmark' %}
+  </a>
+
+  <nav class="header__nav header__nav--end" aria-label="Utility">
+    <a href="{{ routes.search_url }}" class="hide-sm">{{ 'general.search' | t }}</a>
+    <a href="{{ routes.cart_url }}" data-cart-open>{{ 'general.bag' | t }} (<span data-cart-count>{{ cart.item_count }}</span>)</a>
+  </nav>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu",
+      "info": "The first two links show on phones."
+    },
+    {
+      "type": "checkbox",
+      "id": "overlay_home",
+      "label": "Sit over the homepage photo",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

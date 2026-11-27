@@ -1,0 +1,87 @@
+{%- assign current = product.selected_or_first_available_variant -%}
+<section class="pdp" data-product>
+  <div class="pdp__media">
+    {%- for media in product.media -%}
+      {%- if media.media_type == 'image' -%}
+        {%- liquid
+          assign media_alt = media.alt | default: product.title
+          assign media_loading = 'lazy'
+          if forloop.first
+            assign media_loading = 'eager'
+          endif
+        -%}
+        <div class="pdp__img">
+          {{ media | image_url: width: 1600 | image_tag: widths: '600, 900, 1200, 1600', sizes: '(max-width: 800px) 100vw, 60vw', loading: media_loading, alt: media_alt }}
+        </div>
+      {%- endif -%}
+    {%- else -%}
+      <div class="pdp__img">{{ 'product-apparel-1' | placeholder_svg_tag }}</div>
+    {%- endfor -%}
+  </div>
+
+  <div class="pdp__info">
+    <div class="pdp__sticky">
+      <h1 class="pdp__title">{{ product.title | escape }}</h1>
+      <p class="pdp__price" data-price>{% render 'price', variant: current %}</p>
+
+      {%- form 'product', product, class: 'pdp__form', data-product-form: '' -%}
+        <input type="hidden" name="id" value="{{ current.id }}" data-variant-id>
+
+        {%- unless product.has_only_default_variant -%}
+          {%- for option in product.options_with_values -%}
+            <fieldset class="opt">
+              <legend>{{ option.name | escape }}</legend>
+              <div class="opt__values">
+                {%- for value in option.values -%}
+                  <label class="opt__value">
+                    <input type="radio" name="option-{{ forloop.parentloop.index0 }}" value="{{ value | escape }}" data-option-index="{{ forloop.parentloop.index0 }}" {% if option.selected_value == value %}checked{% endif %}>
+                    <span>{{ value | escape }}</span>
+                  </label>
+                {%- endfor -%}
+              </div>
+            </fieldset>
+          {%- endfor -%}
+        {%- endunless -%}
+
+        <button type="submit" class="btn" data-add {% unless current.available %}disabled{% endunless %}>
+          {%- if current.available -%}{{ 'products.add_to_bag' | t }}{%- else -%}{{ 'products.sold_out' | t }}{%- endif -%}
+        </button>
+        <p class="pdp__error" data-error role="alert" hidden></p>
+      {%- endform -%}
+
+      {%- if product.description != blank -%}
+        <div class="pdp__desc rte">{{ product.description }}</div>
+      {%- endif -%}
+
+      {%- for block in section.blocks -%}
+        <details class="pdp__more" {{ block.shopify_attributes }}>
+          <summary>{{ block.settings.title | escape }}</summary>
+          <div class="rte">
+            {%- if block.settings.page != blank -%}{{ block.settings.page.content }}{%- else -%}{{ block.settings.content }}{%- endif -%}
+          </div>
+        </details>
+      {%- endfor -%}
+    </div>
+  </div>
+
+  <script type="application/json" data-variants>
+    {{ product.variants | json }}
+  </script>
+</section>
+
+{% schema %}
+{
+  "name": "Product",
+  "blocks": [
+    {
+      "type": "collapsible",
+      "name": "Fold-out text",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Shipping & returns" },
+        { "type": "richtext", "id": "content", "label": "Text", "default": "<p>Free shipping on orders to Mackay. Easy returns within 30 days.</p>" },
+        { "type": "page", "id": "page", "label": "Or show a page" }
+      ]
+    }
+  ]
+}
+{% endschema %}

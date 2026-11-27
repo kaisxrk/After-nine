@@ -1,0 +1,61 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "focal_x": 50,
+        "focal_y": 34,
+        "show_clock": true,
+        "link_label": "Shop the collection",
+        "link": ""
+      }
+    },
+    "split": {
+      "type": "split",
+      "blocks": {
+        "on": {
+          "type": "tile",
+          "settings": {
+            "title": "On course",
+            "subtitle": "Caps & polos",
+            "fallback": "on-course.jpg",
+            "link": ""
+          }
+        },
+        "off": {
+          "type": "tile",
+          "settings": {
+            "title": "Off course",
+            "subtitle": "Tees",
+            "fallback": "off-course.jpg",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "on",
+        "off"
+      ],
+      "settings": {
+        "label": "Collections"
+      }
+    },
+    "products": {
+      "type": "featured-products",
+      "settings": {
+        "heading": "The collection",
+        "limit": 4
+      }
+    },
+    "statement": {
+      "type": "statement",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "split",
+    "products",
+    "statement"
+  ]
+}

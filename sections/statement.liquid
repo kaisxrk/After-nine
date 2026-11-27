@@ -1,0 +1,21 @@
+<section class="statement" id="about">
+  <p class="statement__big">
+    {{ section.settings.line_1 | escape }}
+    {%- if section.settings.line_2 != blank -%}<br><em>{{ section.settings.line_2 | escape }}</em>{%- endif -%}
+  </p>
+  {%- if section.settings.text != blank -%}
+    <div class="statement__small">{{ section.settings.text }}</div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Brand line",
+  "settings": [
+    { "type": "text", "id": "line_1", "label": "First line", "default": "Good golf." },
+    { "type": "text", "id": "line_2", "label": "Second line (italic)", "default": "Better company." },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Born in North Queensland. A blend of golf, street and coastal culture, shaped by the places we go and the people we meet.</p>" }
+  ],
+  "presets": [{ "name": "Brand line" }]
+}
+{% endschema %}

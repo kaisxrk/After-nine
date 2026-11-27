@@ -1,0 +1,104 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "After Nine",
+    "theme_version": "1.0.0",
+    "theme_author": "After Nine",
+    "theme_documentation_url": "https://afterninegolf.store",
+    "theme_support_url": "https://afterninegolf.store/pages/contact"
+  },
+  {
+    "name": "Brand",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Wordmark",
+        "info": "A black logo on a transparent background works best. It turns white over the homepage photo."
+      },
+      {
+        "type": "range",
+        "id": "logo_height",
+        "label": "Wordmark height",
+        "min": 16,
+        "max": 60,
+        "step": 2,
+        "unit": "px",
+        "default": 30
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon"
+      }
+    ]
+  },
+  {
+    "name": "Location clock",
+    "settings": [
+      {
+        "type": "text",
+        "id": "clock_place",
+        "label": "Place name",
+        "default": "Mackay, QLD"
+      },
+      {
+        "type": "text",
+        "id": "clock_timezone",
+        "label": "Time zone",
+        "info": "IANA name, e.g. Australia/Brisbane",
+        "default": "Australia/Brisbane"
+      }
+    ]
+  },
+  {
+    "name": "Colours",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_paper",
+        "label": "Background",
+        "default": "#f6f4ef"
+      },
+      {
+        "type": "color",
+        "id": "color_ink",
+        "label": "Text",
+        "default": "#161614"
+      },
+      {
+        "type": "color",
+        "id": "color_muted",
+        "label": "Secondary text",
+        "default": "#6f6c64"
+      },
+      {
+        "type": "color",
+        "id": "color_line",
+        "label": "Lines",
+        "default": "#dcd8cf"
+      },
+      {
+        "type": "color",
+        "id": "color_tile",
+        "label": "Product image background",
+        "default": "#ffffff"
+      }
+    ]
+  },
+  {
+    "name": "Social",
+    "settings": [
+      {
+        "type": "url",
+        "id": "social_instagram",
+        "label": "Instagram"
+      },
+      {
+        "type": "url",
+        "id": "social_tiktok",
+        "label": "TikTok"
+      }
+    ]
+  }
+]
